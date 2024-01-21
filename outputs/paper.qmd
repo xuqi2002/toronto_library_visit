@@ -4,7 +4,7 @@ author: "Xu Qi"
 thanks: "Code and data from this analysis are available at: https://github.com/xuqi2002/toronto_library_visit" 
 date: "today"
 date-format: "long" 
-abstract: "Public library is an important part of the community, providing huge amount of knowledge and resources to people. However, with the rise of electronic devices, people can easily access hundreds of latest materials on the internet. Also, the COVID-19 has made people used to activities at home. In such a background, are public libraries still very popular? The purpose of the report is to investigate the number of visits per year to all branches of the Toronto Public Library during the decade, from 2012 to 2022. By exploring the trends in the number of visits, I found a general downward trend in total visits to the Toronto Public Library, particularly a precipitous drop during the COVID-19 outbreak. Although there has been some recovery since then, it is not comparable to that of a decade ago. This finding suggests that the popularity of public libraries has been decreased a lot. However, this cannot fully disprove the role of public libraries in today's society, and more relevant data should be analyzed to interpret the reason."
+abstract: "Public libraries have  been vital community centers, offering a wealth of knowledge and resources. However, the advent of digital technology and the COVID-19 pandemic, which encouraged home-based activities, have impacted their popularity. An analysis of the Toronto Public Library's visitation data from 2012 to 2022 reveals a general decline in visits, with a significant drop during the pandemic. Despite some recovery post-pandemic, the decreased overall library visits suggest a reduced popularity, though this does not negate the ongoing importance of public libraries in society."
 format: pdf
 toc: true
 number-sections: true
@@ -39,13 +39,11 @@ To examine the trend of visit number of Toronto Public Library, this paper is or
 
 ## Data
 
-The data set used in this paper was obtained through the City of Toronto's OpenDataToronto Library [@rOpenDataToronto]. It is entitled 'Library Visits' [@LibraryStatistics]. Data was collected and analyzed using the statistical programming software R [@r], with additional support packages including `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `tibble` [@rTibble], `janitor` [@rJanitor], "kableExtra" [@citekableExtra] and `knitr` [@rknitr]. Detailed data collection, cleaning and analysis process are below.
+The data set used in this paper was obtained through the City of Toronto's OpenDataToronto Library [@rOpenDataToronto]. It is entitled 'Library Visits' [@LibraryStatistics]. Data was collected and analyzed using the statistical programming software R [@r], with additional support packages including `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `tibble` [@rTibble], `janitor` [@rJanitor], `kableExtra` [@rcitekableExtra] and `knitr` [@rknitr]. Detailed data collection, cleaning and analysis process are below.
 
-### Data collection and cleaning
+### Data collection
 
-This dataset was published by the Toronto Public Library [@LibraryStatistics], provides an overview of number of annual visits to all branches of the Toronto Public Library from 2012 to 2022. The format of this dataset is table. Each row of the table has the year, the code name of the branch, and the corresponding number of visits. This dataset was last refreshed on June 30, 2023 and captured for this paper on January 21, 2024.
-
-Although this dataset counts the number of visits to each branch individually, this analysis looks at the overall trends in the Toronto Public Library. Therefore, in terms of data cleaning, I combined the numbers from all branches for each year to effectively analyze the data. Table 1 is the example of clean data.
+This dataset was published by the Toronto Public Library [@LibraryStatistics], provides an overview of number of annual visits to all branches of the Toronto Public Library from 2012 to 2022. The format of this dataset is table. Each row of the table has the year, and the corresponding number of visits. This dataset was last refreshed on June 30, 2023 and captured for this paper on January 21, 2024.
 
 ```{r}
 #| message: false
