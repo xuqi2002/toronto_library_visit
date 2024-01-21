@@ -1,0 +1,90 @@
+---
+title: "Are Public Libraries Become Less Popular? An Analysis of the Visits Number of Toronto Libraries over the Past Decade"
+author: "Xu Qi"
+thanks: "Code and data from this analysis are available at: https://github.com/xuqi2002/toronto_library_visit" 
+date: "today"
+date-format: "long" 
+abstract: "Public library is an important part of the community, providing huge amount of knowledge and resources to people. However, with the rise of electronic devices, people can easily access hundreds of latest materials on the internet. Also, the COVID-19 has made people used to activities at home. In such a background, are public libraries still very popular? The purpose of the report is to investigate the number of visits per year to all branches of the Toronto Public Library during the decade, from 2012 to 2022. By exploring the trends in the number of visits, I found a general downward trend in total visits to the Toronto Public Library, particularly a precipitous drop during the COVID-19 outbreak. Although there has been some recovery since then, it is not comparable to that of a decade ago. This finding suggests that the popularity of public libraries has been decreased a lot. However, this cannot fully disprove the role of public libraries in today's society, and more relevant data should be analyzed to interpret the reason."
+format: pdf
+toc: true
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| message: false
+#| echo: false
+
+#### Workspace set-up ####
+
+## Load packages
+library(tidyverse)
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(opendatatoronto)
+
+# Read in cleaned data #
+cleaned_toronto_libraries <- read.csv(here::here("inputs/data/cleaned_toronto_libraries.csv"))
+show_col_types = FALSE
+```
+
+## Introduction
+
+Over the past decade, public libraries have been greatly affected by a number of factors. This is particularly evident in big cities like Toronto. This paper aims to analyze the trends in visit numbers to Toronto's public libraries over the past decade, providing insights into the popularity of these institutions.
+
+In the digital age, where information can be easily accessed online. The popularity of digital resources such as e-books and online databases has dramatically changed the public's information access behavior [@rlu2023people]. In addition, the COVID-19 outbreak has caused people to spend more time at home [@rmcmenemy2023impact]. This study aims to understand whether these external factors affect the visit number in Toronto Public Library.
+
+To examine the trend of visit number of Toronto Public Library, this paper is organized into the following sections: Data and Discussion. In the Data section, I introduced the nature of the data set obtained through the City of Toronto's OpenDataToronto Library [@rOpenDataToronto] and the procedures I took to clean and analyze the data. Trends identified during the analysis were also highlighted. In the discussion section, in addition to summarizing the findings during the data analysis process, the shortcomings of this study and the many aspects that can be improved to make this analysis more reliable are discussed.
+
+## Data
+
+The data set used in this paper was obtained through the City of Toronto's OpenDataToronto Library [@rOpenDataToronto]. It is entitled 'Library Visits' [@LibraryStatistics]. Data was collected and analyzed using the statistical programming software R [@r], with additional support packages including `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `tibble` [@rTibble], `janitor` [@rJanitor], "kableExtra" [@citekableExtra] and `knitr` [@rknitr]. Detailed data collection, cleaning and analysis process are below.
+
+### Data collection and cleaning
+
+This dataset was published by the Toronto Public Library [@LibraryStatistics], provides an overview of number of annual visits to all branches of the Toronto Public Library from 2012 to 2022. The format of this dataset is table. Each row of the table has the year, the code name of the branch, and the corresponding number of visits. This dataset was last refreshed on June 30, 2023 and captured for this paper on January 21, 2024.
+
+Although this dataset counts the number of visits to each branch individually, this analysis looks at the overall trends in the Toronto Public Library. Therefore, in terms of data cleaning, I combined the numbers from all branches for each year to effectively analyze the data. Table 1 is the example of clean data.
+
+```{r}
+#| message: false
+#| echo: false
+#| label: tbl-cleaned_toronto_libraries
+#| tbl-cap: Sample of Cleaned Toronto Libraries Data
+
+# Showing the first 5 rows of cleaned data
+head (cleaned_toronto_libraries, 5) |>
+  kable(
+    col.names = c("Year", "Visits"),
+  booktabs = TRUE
+  )
+```
+
+### Data analysis
+
+Based on the cleaned data, a line graph could show the trend of visit over years.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Total Annual Visits at All Toronto Public Library Branches (2012-2022)", fig.width=7, fig.height=3.2}
+# Plotting the graph using ggplot2
+ggplot(cleaned_toronto_libraries, aes(x = year, y = visits)) +
+  geom_line(color = "blue", linewidth = 1) +  
+  geom_point(color = "red", size = 2) +
+  scale_x_continuous(breaks = seq(min(cleaned_toronto_libraries$year), max(cleaned_toronto_libraries$year), by = 1)) +
+  labs(x = "Year",
+       y = "Total Visits") +
+  theme_minimal() + 
+  theme(plot.title = element_text(size = 5))
+```
+
+Figure 1 shows a gradual downward trend in total visits to the Toronto Public Library from 2012 to 2019. It declines even more sharply thereafter in 2020 and 2021. While it recovers in 2022, it is still only half of where it was 10 years ago. This trend is explained in the discussion part below with more details.
+
+## Discussion
+
+Analysis of the dataset shows a gradual decline in visits to the Toronto Public Library from 2012 to 2019. In 2020, the worst year of COVID-19, due to lockdown measures as well as health reasons, there is a very significant drop in the number of visits and the trend continues to 2021. By 2022, due to the better situation of COVID-19 and the gradual lifting of various measures, the number of visits has rebounded significantly, but it is still much lower than the year before 2020.
+
+However, this analysis is not sufficient to show a very significant downward trend in the popularity of public libraries in Toronto. The first reason is that this analysis only considers data related to the number of visits, and therefore no sufficient evidence for specific reasons behind the decline I explained above. And the other reason is that data for 2023 is not included, due to the fact that the Toronto Public Library does not publish whole year data, yet. 2023 is the first year of the full deregulation of COVID-19, so it is not necessary for its data to be similar to years from 2020 to 2022, making it impossible to conclude the most recent trend.
+
+In conclusion, this paper reveals the fact that the number of visits to the Toronto Public Library has been gradually decreasing over the past decade, but the reasons behind it and the trend after COVID-19 still need to be confirmed by analyzing more types and amounts of data.
+
+## References
