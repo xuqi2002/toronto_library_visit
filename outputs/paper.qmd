@@ -43,7 +43,7 @@ The data set used in this paper was obtained through the City of Toronto's OpenD
 
 ### Data collection
 
-This dataset was published by the Toronto Public Library [@LibraryStatistics], provides an overview of number of annual visits to all branches of the Toronto Public Library from 2012 to 2022. The format of this dataset is table. Each row of the table has the year, and the corresponding number of visits. This dataset was last refreshed on June 30, 2023 and captured for this paper on January 21, 2024.
+This dataset was published by the Toronto Public Library [@LibraryStatistics], provides an overview of number of annual visits to all branches of the Toronto Public Library from 2012 to 2022. The format of this dataset is table. Each row of the table has the year, and the corresponding number of visits, @tbl-cleaned_toronto_libraries is an example of first 5 rows of the cleaned data set. This dataset was last refreshed on June 30, 2023 and captured for this paper on January 21, 2024.
 
 ```{r}
 #| message: false
@@ -64,6 +64,7 @@ head (cleaned_toronto_libraries, 5) |>
 Based on the cleaned data, a line graph could show the trend of visit over years.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Total Annual Visits at All Toronto Public Library Branches (2012-2022)", fig.width=7, fig.height=3.2}
+#| label: fig-1
 # Plotting the graph using ggplot2
 ggplot(cleaned_toronto_libraries, aes(x = year, y = visits)) +
   geom_line(color = "blue", linewidth = 1) +  
@@ -75,7 +76,7 @@ ggplot(cleaned_toronto_libraries, aes(x = year, y = visits)) +
   theme(plot.title = element_text(size = 5))
 ```
 
-Figure 1 shows a gradual downward trend in total visits to the Toronto Public Library from 2012 to 2019. It declines even more sharply thereafter in 2020 and 2021. While it recovers in 2022, it is still only half of where it was 10 years ago. This trend is explained in the discussion part below with more details.
+@fig-1 shows a gradual downward trend in total visits to the Toronto Public Library from 2012 to 2019. It declines even more sharply thereafter in 2020 and 2021. While it recovers in 2022, it is still only half of where it was 10 years ago. This trend is explained in the discussion part below with more details.
 
 ## Discussion
 
