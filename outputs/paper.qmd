@@ -22,6 +22,7 @@ library(tidyverse)
 library(knitr)
 library(ggplot2)
 library(dplyr)
+library(scales)
 library(opendatatoronto)
 
 # Read in cleaned data #
@@ -39,7 +40,7 @@ To examine the trend of visit number of Toronto Public Library, this paper is or
 
 ## Data
 
-The data set used in this paper was obtained through the City of Toronto's OpenDataToronto Library [@rOpenDataToronto]. It is entitled 'Library Visits' [@LibraryStatistics]. Data was collected and analyzed using the statistical programming software R [@r], with additional support packages including `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `tibble` [@rTibble], `janitor` [@rJanitor], `kableExtra` [@rcitekableExtra] and `knitr` [@rknitr]. Detailed data collection, cleaning and analysis process are below.
+The data set used in this paper was obtained through the City of Toronto's OpenDataToronto Library [@rOpenDataToronto]. It is entitled 'Library Visits' [@LibraryStatistics]. Data was collected and analyzed using the statistical programming software R [@r], with additional support packages including `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `tibble` [@rTibble], `janitor` [@rJanitor], `kableExtra` [@rcitekableExtra], `knitr` [@rknitr] and `scales` [@rscales]. Detailed data collection, cleaning and analysis process are below.
 
 ### Data collection
 
@@ -69,6 +70,7 @@ Based on the cleaned data, a line graph could show the trend of visit over years
 ggplot(cleaned_toronto_libraries, aes(x = year, y = visits)) +
   geom_line(color = "blue", linewidth = 1) +  
   geom_point(color = "red", size = 2) +
+  scale_y_continuous(labels = scales::label_comma()) +
   scale_x_continuous(breaks = seq(min(cleaned_toronto_libraries$year), max(cleaned_toronto_libraries$year), by = 1)) +
   labs(x = "Year",
        y = "Total Visits") +
