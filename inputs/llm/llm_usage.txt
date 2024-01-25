@@ -1,4 +1,4 @@
-**These are my conversation with Chatgpt 4.0. I used it to give me some instruction on data cleaning and create ideal plots.**
+**These are my conversation with ChatGPT. I used it to give me some instruction on data cleaning and create ideal plots.**
 
 
 You:
@@ -146,6 +146,33 @@ print(p)
 In the scale_x_continuous() function, breaks = seq(min(cleaned_toronto_libraries$Year), max(cleaned_toronto_libraries$Year), by = 1) creates a sequence of breaks from the minimum to the maximum year in increments of 1, which should correspond to the actual years in your dataset.
 
 Try running this code in your local R environment to see if it resolves the issue with the x-axis labels.
+------------------
+You:
+
+My y axis value is like "1.5e+07", how do I change it to number.
+------------------
+ChatGPT:
+Scientific notation on the y-axis (like "1.5e+07") is automatically used by ggplot2 when dealing with large numbers. To display the numbers in a standard format, you can use the scales package which provides the function label_comma() to format the labels with commas for the thousand separators, or label_number() to simply display a plain number.
+
+Here's how you can adjust your ggplot2 code to format the y-axis labels:
+R code:
+
+library(ggplot2)
+library(scales)
+
+# Assuming cleaned_toronto_libraries is your data frame with the proper Year column
+
+ggplot(cleaned_toronto_libraries, aes(x = Year, y = Visits)) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::label_comma()) +  # Format y-axis labels with commas
+  labs(title = "Total Annual Visits at All Toronto Public Library Branches (2012-2022)",
+       x = "Year",
+       y = "Total Visits") +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 14))
+
+This will change the y-axis labels to display numbers with a comma as the thousand separator, turning "1.5e+07" into "15,000,000" for example.
 
 
 **Not all code were used in the paper, and some changes were applied to meet the requirement of my data and graph.**
